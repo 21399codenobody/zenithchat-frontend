@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ Zenith Chat — Client Application (Frontend)
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2-blue?style=for-the-badge&logo=react)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-cyan?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+[![Zustand](https://img.shields.io/badge/Zustand-v5-orange?style=for-the-badge)](https://zustand-demo.pmnd.rs/)
 
-First, run the development server:
+> The official Next.js 16 client for **Zenith Chat** — an enterprise-grade, real-time messaging, supergroup, and community platform inspired by Telegram and WhatsApp.
+
+---
+
+## 🔗 Connected Ecosystem
+- 🌐 **Live Web Application:** [https://zenithchat.vercel.app](https://zenithchat.vercel.app) *(Coming Soon / Active)*
+- ⚙️ **Backend Repository (Node.js/Socket.io):** [https://github.com/your-username/zenithchat-backend](https://github.com/your-username/zenithchat-backend)
+
+---
+
+## 📱 Client Features & User Experience
+
+- **Passwordless Phone Auth:** WhatsApp-style international phone number input with automatic dial code lookup (`libphonenumber-js`) and auto-advancing 6-digit OTP boxes.
+- **Telegram 24h Stories Suite:** Horizontal circular stories tray with full-screen video/photo player and progress bars.
+- **Voice Notes Recording:** Native Web Audio `MediaRecorder` integration with live recording timers and in-bubble audio players.
+- **Real-Time Messaging:** Instant socket delivery, live read-receipts (`CheckCheck`), typing indicators, and emoji reactions.
+- **Supergroup & Channel Governance:** Full Role-Based Access Control (RBAC) drawer for Admins & Owners with 10-character smart invite links and slow-mode controllers.
+- **WebRTC Call Overlay:** Interactive cyberpunk-themed 1-on-1 audio/video call screen.
+- **Contacts Directory:** Instant phonebook synchronization and contact search.
+
+---
+
+## 🛠️ Frontend Tech Stack
+
+- **Framework:** Next.js 16 (App Router with Turbopack)
+- **Library:** React 19
+- **State Management:** Zustand v5 (Reactive and decoupled stores)
+- **Styling:** Tailwind CSS v4 with Glassmorphism and Custom Cyberpunk Dark Palette
+- **Real-time Client:** `socket.io-client` (Singleton gateway)
+- **HTTP Client:** Axios with JWT request/response interceptors
+- **Icons:** Lucide React
+
+---
+
+## 🔌 How It Connects to Backend
+
+This client connects to the **Zenith Backend Gateway** using two primary channels:
+1. **RESTful APIs (`Axios`):** Handles authentication, media uploads, contact directory sync, and user profile management.
+2. **WebSockets (`Socket.io`):** Establishes an always-on bi-directional communication tunnel for instant messaging, peer calling signals, typing events, and online presence.
+
+---
+
+## 💻 Local Setup Instructions
 
 ```bash
+# Clone this repository
+git clone https://github.com/your-username/zenithchat-frontend.git
+
+# Navigate to project folder
+cd zenithchat-frontend
+
+# Install dependencies
+npm install
+
+# Create environment configuration
+cp .env.example .env.local
+Environment Variables (.env.local)
+code
+Env
+NEXT_PUBLIC_API_URL=http://localhost:5001/api
+NEXT_PUBLIC_SOCKET_URL=http://localhost:5001
+code
+Bash
+# Run local development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open http://localhost:3000 in your browser.
+👨‍💻 Developed By
+GitHub: 21399codenobody
+LinkedIn: https://www.linkedin.com/in/omar-khattab-safar
