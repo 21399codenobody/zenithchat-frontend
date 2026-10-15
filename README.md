@@ -11,7 +11,7 @@
 
 ## 🔗 Connected Ecosystem
 - 🌐 **Live Web Application:** [https://zenithchat.vercel.app](https://zenithchat.vercel.app) *(Coming Soon / Active)*
-- ⚙️ **Backend Repository (Node.js/Socket.io):** [https://github.com/your-username/zenithchat-backend](https://github.com/your-username/zenithchat-backend)
+- ⚙️ **Backend Repository (Node.js/Socket.io):** [https://github.com/21399codenobody/zenithchat-backend](https://github.com/21399codenobody/zenithchat-backend)
 
 ---
 
