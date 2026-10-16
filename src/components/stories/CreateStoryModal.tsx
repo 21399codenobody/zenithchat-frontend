@@ -23,33 +23,28 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
 
     if (!isOpen) return null;
 
-    // 🎯 বুলেটপ্রুফ ফাইল সিলেক্টর (মুহূর্তেই প্রিভিউ আসবে)
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // সাইজ লিমিট (সর্বোচ্চ 10MB)
         if (file.size > 10 * 1024 * 1024) {
             setError("File size exceeds 10MB limit.");
             return;
         }
 
-        const isVideo = file.type.startsWith('video/');
+        const isVideo = file.type.startsWith('video/') || Boolean(file.name.match(/\.(mp4|mov|avi|mkv|webm)$/i));
         const tempBlobUrl = URL.createObjectURL(file);
         
-        // ১. ইনস্ট্যান্ট স্ক্রিন প্রিভিউ সেট করা (কোনো অপেক্ষা নেই!)
         setMediaPreview(tempBlobUrl);
         setMediaType(isVideo ? 'video' : 'image');
         setError(null);
 
-        // ২. প্যারালালে আসল Base64 ডাটা তৈরি
         const reader = new FileReader();
         reader.onloadend = () => {
             setMediaBase64(reader.result as string);
         };
         reader.readAsDataURL(file);
 
-        // ৩. ভিডিও হলে দৈর্ঘ্য মেপে নেওয়া
         if (isVideo) {
             const videoEl = document.createElement('video');
             videoEl.preload = 'metadata';
@@ -68,11 +63,9 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
             setVideoDuration(5);
         }
 
-        // ইনপুট রিসেট করা যাতে বারবার ফাইল সিলেক্ট করা যায়
         e.target.value = '';
     };
 
-    // স্টোরি পাবলিশ করা
     const handlePostStory = async () => {
         if (!mediaBase64 && !mediaPreview) {
             setError("Please choose an image or video first.");
@@ -106,7 +99,6 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none animate-in fade-in duration-200">
             <div className="w-full max-w-sm rounded-3xl bg-neutral-900 border border-cyan-500/25 p-5 shadow-2xl shadow-cyan-950/80 space-y-4">
                 
-                {/* টপ হেডার */}
                 <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
                     <div className="flex items-center space-x-2 text-cyan-400">
                         <Sparkles className="w-4 h-4" />
@@ -130,7 +122,6 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
                     </div>
                 )}
 
-                {/* ফাইল ইনপুট */}
                 <input 
                     type="file" 
                     ref={fileInputRef} 
@@ -139,7 +130,6 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
                     className="hidden" 
                 />
 
-                {/* 🎯 ক্লিকেবল প্রিভিউ বক্স */}
                 <div 
                     onClick={() => fileInputRef.current?.click()}
                     className={`w-full h-64 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition overflow-hidden border-2 relative ${
@@ -173,7 +163,6 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
                     )}
                 </div>
 
-                {/* ক্যাপশন ইনপুট */}
                 <input 
                     type="text"
                     maxLength={150}
@@ -183,7 +172,6 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
                     className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 text-xs focus:outline-none focus:border-cyan-400 transition"
                 />
 
-                {/* পাবলিশ বাটন */}
                 <button
                     onClick={handlePostStory}
                     disabled={isLoading || !mediaPreview}
@@ -192,7 +180,7 @@ export const CreateStoryModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }
                     {isLoading ? (
                         <span className="flex items-center justify-center space-x-2">
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span>Uploading Story...</span>
+                            <span>Publishing Story...</span>
                         </span>
                     ) : (
                         `Post ${mediaType === 'video' ? 'Video' : 'Photo'} Story (24h) 🚀`
